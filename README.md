@@ -20,8 +20,8 @@ Provides PyTorch dataset classes and a collation function for preparing text dat
   - Both classes tokenize lines, truncate or pad sequences to a fixed length, and return PyTorch tensors.
 - **Function - `llama_collate_fn`:** A collation function for batch processing that splits each tensor into input (`x`) and target (`y`) sequences, shifting tokens by one position.
   - For the sentence "I have an apple":
-    - `x`: [<BOS>, "I", "have", "an"]
-    - `y`: ["I", "have", "an", "apple", <EOS>]
+    - `x`: [\<BOS>, "I", "have", "an"]
+    - `y`: ["I", "have", "an", "apple", \<EOS>]
 
 ### `train.py`
 Contains training code for the model, using a teacher model. It employs a cosine scheduler with warmup and the AdamW optimizer.
