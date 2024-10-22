@@ -65,6 +65,8 @@ The model was trained on Spartan HPC at the University of Melbourne, using two A
 3. **DDP Optimization:** Currently, each GPU instance has a separate copy of the teacher model, which is inefficient. Consider optimizing the Distributed Data Parallel (DDP) setup.
 
 ## Acknowledgements
+- University of Melbourne for providing the resources
+- AGL Energy for initiating the project
+- [LLaMA 2 from scratch](https://github.com/abdallah197/llama2-from-scratch) for codebase
+- [Meta LLaMA](https://github.com/meta-llama/llama/tree/main) for pretrained weights
 
-- [LLaMA 2 from scratch](https://github.com/abdallah197/llama2-from-scratch)
-- [Meta LLaMA](https://github.com/meta-llama/llama/tree/main)
