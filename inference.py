@@ -18,7 +18,7 @@ parser.add_argument('prompts', nargs='+', help='List of prompts for inference')
 args = parser.parse_args()
 
 class LLama:
-
+    
     def __init__(self, model: Transformer, tokenizer: SentencePieceProcessor, model_args: ModelArgs, device: str):
         self.model = model
         self.tokenizer = tokenizer
@@ -195,7 +195,7 @@ class LLama:
 if __name__ == '__main__':
     torch.manual_seed(78)
     inference_args = InferenceArgs()
-    if inference_args.checkpoint_dir == 'Baby-Llama-Checkpoints':
+    if inference_args.checkpoint_dir == 'DistilLlama-Checkpoints':
         model_args = ModelArgs()
     else:
         model_args = None

@@ -28,7 +28,7 @@ class TrainArgs(ModelArgs):
     temperature: float = 2
     alpha: float = 0.3
     n_random_sample: int = 5000
-    save_dir: str = 'Baby-Llama-Checkpoints'
+    save_dir: str = 'DistilLlama-Checkpoints'
 
 # # Local test
 # @dataclass
@@ -59,7 +59,7 @@ class TrainArgs(ModelArgs):
 #     temperature: float = 2
 #     alpha: float = 0.5
 #     n_random_sample: int = 100
-#     save_dir: str = 'Baby-Llama-Checkpoints'
+#     save_dir: str = 'DistilLlama-Checkpoints'
 
 @dataclass
 class DataArgs(ModelArgs):
@@ -70,9 +70,9 @@ class DataArgs(ModelArgs):
     
 @dataclass
 class InferenceArgs(ModelArgs):
-    checkpoint_dir: str = 'Baby-Llama-Checkpoints'
+    checkpoint_dir: str = 'DistilLlama-Checkpoints'
     tokenizer_path: str = 'tokenizer.model'
     load_model: bool = True
     max_seq_len: int = 64
-    temperature: float = 0.6
-    top_p: float = 0.7
+    temperature: float = 0.7
+    top_p: float = 0.4
