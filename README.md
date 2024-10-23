@@ -53,10 +53,13 @@ Set `world_size`, `rank`, and `gpus_per_node` based on your local environment. A
 ## Training Details
 The model was trained on Spartan HPC at the University of Melbourne, using two A100 80GB GPUs. Here are some inference examples after 3 hours (30,000 steps) of training:
 
-- **Given the prompt:** "City"
-  - **Generated output:** "City Council personnel engaged Jewish settlement project"
-- **Given the prompt:** "President"
-  - **Generated output:** "President Donald Trumpt promises to support ..."
+### Text Generation Examples
+
+1. **Input**: *The capital of France is*
+   - **Output**: "The capital of France is located in the southern province of Lyon, France. The capital is the main hub of the French capital, La Caillion, and the main hub of the French capital. A major part of the French capital is in the southern city of Paris."
+
+2. **Input**: *The tallest mountain in the world is*
+   - **Output**: "The tallest mountain in the world is Mount Everest, which is located in the northwest corner of the village of Kahuna. The mountain is about 1,000 feet (3,000 m) above sea level."
 
 ## Future Improvements
 
