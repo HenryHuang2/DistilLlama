@@ -4,10 +4,8 @@ import lzma
 import shutil
 
 """
-This code is for extracting the text from openwebtext from huggingface dataset Skylion007/openwebtext
-Check this out: https://huggingface.co/datasets/Skylion007/openwebtext
+Preprocesses OpenWebText dataset to a single .txt file.
 """
-
 
 # Set up paths
 base_path = 'openwebtext/subsets'

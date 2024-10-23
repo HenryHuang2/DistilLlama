@@ -16,6 +16,13 @@ from train import train
 def setup(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
 
+# # Local test
+# def setup(rank, world_size): # 
+#     os.environ['MASTER_ADDR'] = 'localhost' # 
+#     os.environ['MASTER_PORT'] = '12355' # 
+#     dist.init_process_group("nccl", rank=rank, world_size=world_size) # 
+
+
 def cleanup():
     dist.destroy_process_group()
 
@@ -43,6 +50,10 @@ def run_main():
     world_size = int(os.environ["WORLD_SIZE"]) # 
     rank = int(os.environ["SLURM_PROCID"]) # 
     gpus_per_node = int(os.environ["SLURM_GPUS_ON_NODE"]) # 
+    # # Local test
+    # world_size = 1 #
+    # rank = 0 # 
+    # gpus_per_node = 1 #
     assert gpus_per_node == torch.cuda.device_count()
     print(f"Hello from rank {rank} of {world_size} where there are {gpus_per_node} allocated GPUs per node.", flush=True)
 
@@ -54,7 +65,8 @@ def run_main():
         train_dataset,
         batch_size=args['batch_size'],
         sampler=train_sampler,
-        num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]),
+        num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]), # 
+        # num_workers=6, # For testing
         pin_memory=True,
         collate_fn=llama_collate_fn
     )
@@ -64,7 +76,8 @@ def run_main():
         eval_dataset,
         batch_size=args['batch_size'],
         sampler=eval_sampler,
-        num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]),
+        num_workers=int(os.environ["SLURM_CPUS_PER_TASK"]), # 
+        # num_workers=6, # For testing
         pin_memory=True,
         collate_fn=llama_collate_fn
     )
@@ -84,7 +97,6 @@ def run_main():
         pre_trained_model_path='llama-2-7b'
     )
     teacher_model = Transformer(device=local_rank, args=teacher_model_args).to(device=local_rank, dtype=torch.bfloat16)
-
 
     # Load teacher model weights
     checkpoints = sorted(Path(teacher_model_args.pre_trained_model_path).glob('*.pth'))

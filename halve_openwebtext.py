@@ -1,5 +1,9 @@
 from pathlib import Path
 
+"""
+Split the openwebtext dataset into two files, which allow lower memory usage.
+"""
+
 data_file = Path('openwebtext_dataset.txt')
 output_file1 = Path('openwebtext_dataset.txt')
 output_file2 = Path('openwebtext_dataset2.txt')

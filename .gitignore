@@ -1,0 +1,11 @@
+Baby-Llama-Checkpoints
+__pycache__/
+openwebtext/
+wikitext/
+openwebtext_dataset.txt
+openwebtext_dataset1.txt
+openwebtext_dataset2.txt
+tokenizer_checklist.chk
+tokenizer.model
+publish.py
+llama-2-7b/

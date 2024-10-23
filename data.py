@@ -22,10 +22,14 @@ class ParquetDataset(Dataset):
         column = table.column(0)
         self.raw_text_array = column.to_pylist()
         
+        # TODO: use a better cleaning function
         if clean_up_fn is None:
             def clean_up_fn(line: str) -> str:
                 proccessed_line = line.strip()
-                return proccessed_line
+                if len(tokenizer.encode(proccessed_line)) < 0.5 * max_sequence_length:
+                    return ""
+                else:
+                    return proccessed_line
                 
         self.text_array = [clean_up_fn(text) for text in self.raw_text_array]
         self.text_array = [text for text in self.text_array if text]
@@ -52,11 +56,13 @@ class TextFileDataset(Dataset):
         if clean_up_fn is None:
             def clean_up_fn(line: str) -> str:
                 proccessed_line = line.strip()
-                return proccessed_line
+                if len(tokenizer.encode(proccessed_line)) < 0.5 * max_sequence_length:
+                    return ""
+                else:
+                    return proccessed_line
 
         with open(file_path, 'r', encoding='utf-8') as file:
-            # self.lines = [clean_up_fn(line) for line in file]
-            self.lines = [line.strip() for line in file]
+            self.lines = [clean_up_fn(line) for line in file]
             
         self.lines = [line for line in self.lines if line]
 

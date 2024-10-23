@@ -194,7 +194,7 @@ class SelfAttention(nn.Module):
         scores = torch.matmul(xq, keys.transpose(-2, -1)) / math.sqrt(self.head_dim)
 
         # Create a causal mask
-        # Assuming `seq_length` is the length of the sequence and `device` is the computation device
+        # `seq_length` is the length of the sequence and `device` is the computation device
         mask = torch.tril(torch.ones(seq_length, seq_length, device=xq.device)).unsqueeze(0).unsqueeze(0)
         mask = mask.expand(batch_size, self.n_heads_q, -1, -1)  # Adjust dimensions to match scores
 

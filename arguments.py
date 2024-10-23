@@ -1,6 +1,5 @@
 from config import DataArgs, ModelArgs, TrainArgs, InferenceArgs
 
-
 def get_args():
     """ parse all config args into one place """
 

@@ -8,6 +8,7 @@ from typing import List, Optional
 import torch
 from sentencepiece import SentencePieceProcessor
 from tqdm import tqdm
+import re
 
 from config import ModelArgs, InferenceArgs
 from model import Transformer
@@ -29,11 +30,12 @@ class LLama:
               max_seq_len: int, batch_size: int, device: str, model_args: ModelArgs = None):
         prev_time = time.time()
 
-        # load the checkpoint of the model
+        # Load the checkpoint of the model
         if load_model:
-            checkpoints = sorted(list(Path(checkpoint_dir).glob('*.pth')) + list(Path(checkpoint_dir).glob('*.pt')))
+            checkpoints = list(Path(checkpoint_dir).glob('*.pth')) + list(Path(checkpoint_dir).glob('*.pt'))
             assert len(checkpoints) > 0
-            chk_path = checkpoints[-1]
+            sorted_checkpoints = sorted(checkpoints, key=lambda s: [int(text) if text.isdigit() else text for text in re.split(r'(\d+)', str(s))])
+            chk_path = sorted_checkpoints[-1]
             print(f'loading checkpoint {chk_path}')
             checkpoint = torch.load(chk_path)
             print(f'Loaded checkpoint in {(time.time() - prev_time):.2f} seconds')
@@ -49,16 +51,15 @@ class LLama:
             
         model_args.batch_size = batch_size
         model_args.max_seq_length = max_seq_len
-        # model_args.mode = 'inference'
-        model_args.mode = 'train' #
+        model_args.mode = 'inference'
 
         ## load the tokenizer
         tokenizer = SentencePieceProcessor()
         tokenizer.load(tokenizer_path)
         model_args.vocab_size = tokenizer.vocab_size()
 
-        # set the tensor type as instructed in the paper
-        # if we use GPU, we change the precision to  16-bit half-precision floating-point numbers (also known
+        # Set the tensor type as instructed in the paper
+        # If we use GPU, we change the precision to 16-bit half-precision floating-point numbers (also known
         # as float16 or half) on CUDA-enabled GPUs.
         if device == 'cuda':
             torch.set_default_dtype(torch.float16)  # Set default to half precision for CUDA
@@ -128,7 +129,7 @@ class LLama:
                 probs = torch.softmax(logits[:, -1] / temperature, dim=-1)
                 next_token = self._sample_top_p(probs, top_p)
             else:
-                # Greedy select the next token.
+                # Greedily select the next token.
                 next_token = torch.argmax(logits[:, -1], dim=-1)
             # The reshape(-1) operation is a safeguard to ensure that next_token is a 1-dimensional tensor with its
             # length equal to the batch size, regardless of how the sampling function returns the values.
@@ -192,7 +193,7 @@ class LLama:
 
 
 if __name__ == '__main__':
-    torch.manual_seed(0)
+    torch.manual_seed(78)
     inference_args = InferenceArgs()
     if inference_args.checkpoint_dir == 'Baby-Llama-Checkpoints':
         model_args = ModelArgs()

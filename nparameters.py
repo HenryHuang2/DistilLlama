@@ -1,5 +1,8 @@
 from config import ModelArgs
 def calculate_nparameters(args: ModelArgs, vocab_size: int) -> int:
+    """
+    Calculate the number of parameters in the Llama 2 model
+    """
     n_parameters = 0
     n_parameters_embedding = vocab_size * args.dim
     if args.n_kv_heads is None:
