@@ -64,8 +64,10 @@ The model was trained on Spartan HPC at the University of Melbourne, using two A
 ## Future Improvements
 
 1. **Data Preprocessing:** Improve data preprocessing by cleaning and filtering text. Segment long sequences into smaller chunks.
-2. **Teacher Model Selection:** Use a teacher model pretrained on the same dataset. For this project, since OpenWebText was used as the training dataset, GPT-2 would be a suitable teacher as it is trained on the same dataset and uses a matching tokenizer.
-3. **DDP Optimization:** Currently, each GPU instance has a separate copy of the teacher model, which is inefficient. Consider optimizing the Distributed Data Parallel (DDP) setup.
+2. **DDP Optimization:** Currently, each GPU instance has a separate copy of the teacher model, which is inefficient. Consider optimizing the Distributed Data Parallel (DDP) setup.
+
+## HuggingFace Model
+The model is uploaded to [HuggingFace](https://huggingface.co/HenryHHHH/DistilLlama)
 
 ## Acknowledgements
 - University of Melbourne for providing the resources
