@@ -98,7 +98,7 @@ def train(rank, device, student_model, teacher_model, train_config, train_datalo
         
         optimizer.zero_grad()
         for step, (inputs, targets) in enumerate(train_dataloader, start=start_step):
-            print(f"Rank {rank} Device {device} Epoch {epoch} Step {step}/{total_steps}")
+            print(f"Rank {rank} Device {device} Epoch {epoch} Step {step}/{len(train_dataloader)}")
             
             inputs, targets = inputs.to(device), targets.to(device)
             
